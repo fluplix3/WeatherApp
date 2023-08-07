@@ -1,0 +1,144 @@
+.moreDetails {
+    margin-top: 38px;
+}
+
+.moreDetailsTitle {
+    color: var(--gray-color);
+    font-size: var(--fsize24);
+    font-weight: var(--weight700);
+    transition: bacrground-color .4s;
+}
+
+.cardsDetails {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+}
+
+.cardDetails {
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.05);
+    width: 320px;
+    height: 181px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background-color .4s;
+}
+
+.cardDetails:nth-child(1),
+.cardDetails:nth-child(3) {
+    margin-right: 80px;
+}
+
+.cardDetails:not(:nth-child(1), :nth-child(2)) {
+    margin-top: 18px;
+}
+
+.cardMainText {
+    font-weight: var(--weight400);
+    color: var(--gray-color);
+    font-size: var(--fsize18);
+    margin-top: 20px;
+    transition: background-color .4s;
+}
+
+.numberBlock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 211px;
+    margin-top: 15px;
+}
+
+.numberBlock34 {
+    width: 270px;
+}
+
+.numberDetails {
+    font-size: 64px;
+    font-weight: 900;
+    color: var(--gray-color);
+    transition: background-color .4s;
+}
+
+.unitsDetails {
+    font-size: 36px;
+    font-weight: var(--weight500);
+    color: var(--gray-color);
+    margin-left: 10px;
+    margin-top: 18px;
+    transition: background-color .4s;
+}
+
+.windDetailsBlock {
+    display: flex;
+    align-items: center;
+    width: 60px;
+}
+
+.wind {
+    margin-left: 11px;
+    font-weight: 300;
+    font-size: var(--fsize18);
+    color: var(--gray-color);
+    transition: backround-color .4s;
+}
+
+.unitsMercury {
+    margin-left: 13px;
+    font-weight: var(--weight500);
+    font-size: var(--fsize18);
+    color: var(--gray-color);
+    margin-top: 32px;
+    transition: background-color .4s;
+}
+
+/* dark-themes */
+
+.cardDetails.dark-mode {
+    background-color: var(--dark-theme);
+}
+
+.numberDetails.dark-mode,
+.cardMainText.dark-mode,
+.unitsDetails.dark-mode,
+.unitsMercury.dark-mode,
+.wind.dark-mode,
+.moreDetailsTitle.dark-mode {
+    color: var(--lightGray);
+}
+
+@media (max-width: 1439px) {
+
+    .moreDetails {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .moreDetailsTitle {
+        margin-bottom: 0;
+    }
+
+    .cardsDetails {
+        margin-top: 25px;
+        margin-bottom: 83px;
+        display: block;
+    }
+
+    .cardDetails:not(:first-child) {
+        margin-top: 27px;
+    }
+
+    .cardDetails:nth-child(1),
+    .cardDetails:nth-child(3) {
+        margin-right: 0;
+    }
+
+    .cardDetails {
+        margin: 0;
+    }
+
+}

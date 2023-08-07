@@ -1,0 +1,63 @@
+:root {
+    --gray-color: rgba(72, 72, 74, 1);
+    --otherGray-color: rgba(172, 172, 172, 1);
+    --dark-theme: rgb(33, 35, 49);
+    --lightGray: rgba(230, 230, 230, 1);
+
+    --weight700: 700;
+    --weight500: 500;
+    --weight400: 400;
+
+    --fsize18: 18px;
+    --fsize24: 24px;
+}
+
+* {
+    font-family: 'Rubik', sans-serif;
+}
+
+button {
+    cursor: pointer;
+}
+
+ul {
+    list-style: none;
+}
+
+.html {
+    background-color: #F1F1F1;
+    transition: background-color .4s;
+}
+
+body {
+    margin: 0 auto;
+    max-width: 1440px;
+    background-color: white;
+    transition: background-color .4s;
+}
+
+main {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+/* dark-themes */
+
+body.dark-mode,
+.html.dark-mode {
+    background-color: rgba(16, 14, 28, 1);
+}
+
+@media (max-width: 1439px) {
+    main {
+        height: 100%;
+    }
+}
+
+@media (max-width: 833px) {
+    main {
+        flex-direction: column;
+        align-items: center;
+    }
+}

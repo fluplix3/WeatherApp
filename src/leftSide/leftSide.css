@@ -1,0 +1,396 @@
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 64px;
+    height: 32px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+    border-radius: 34px;
+    border: 2px solid var(--otherGray-color);
+    transition: .4s;
+    cursor: pointer;
+}
+
+.slider::before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--gray-color);
+    border-radius: 50%;
+    transition: .4s;
+}
+
+.moon {
+    fill: var(--lightGray);
+    position: absolute;
+    left: 9px;
+    top: 9px;
+    transition: .4s;
+    cursor: pointer;
+}
+
+input:checked+.slider,
+input:checked+.moon {
+    background-color: var(--dark-theme);
+}
+
+input:checked+.slider:before {
+    transform: translateX(32px);
+    background-color: rgba(236, 110, 77, 1);
+}
+
+input:checked+.slider+.moon {
+    transform: translateX(32px);
+}
+
+input:checked+.slider+.moon>path {
+    fill: var(--dark-theme);
+}
+
+.leftSide {
+    max-width: 460px;
+    width: 100%;
+    background-image: url('/src/img/Cloud-background.svg');
+    background-repeat: no-repeat;
+    background-position-y: 13%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    transition: background-color .4s;
+}
+
+.LeftSideBtns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    max-width: 378px;
+    width: 100%;
+}
+
+.blockInfoDegrees {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.btnSearchCity {
+    align-self: flex-start;
+    color: var(--gray-color);
+    font-size: var(--fsize18);
+    background-color: white;
+    border: 2px solid #acacac;
+    width: 180px;
+    height: 50px;
+    border-radius: 10px;
+    font-weight: var(--weight700);
+    transition: background-color .4s;
+}
+
+.inputSearch {
+    width: 210px;
+    height: 45px;
+    margin-left: 45px;
+    border: 2px solid #acacac;
+    outline: #acacac;
+    border-radius: 10px;
+    background-color: white;
+    font-size: var(--fsize18);
+    background-image: url('/src/img/search.svg');
+    background-repeat: no-repeat;
+    background-position-x: 5%;
+    background-position-y: 48%;
+    padding-left: 40px;
+    transition: background-color.4s;
+}
+
+.inputSearch::placeholder {
+    font-size: var(--fsize18);
+    font-weight: var(--weight500);
+}
+
+.inputSearch:focus-visible {
+    outline: none;
+}
+
+.btnSearch {
+    color: var(--gray-color);
+    font-size: var(--fsize18);
+    border-radius: 10px;
+    background-color: white;
+    border: 2px solid #acacac;
+    width: 97px;
+    height: 50px;
+    margin-left: 20px;
+    font-weight: var(--weight500);
+    transition: background-color .4s;
+}
+
+.searchPanel {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: white;
+    transition: transform .5s ease-in-out, opacity .5s ease-in-out;
+    transform: translateX(-100%);
+}
+
+.searchPanel.open {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.closeBtn {
+    border: 0;
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    background-color: white;
+    margin-top: 45px;
+    margin-right: 45px;
+    align-self: flex-end;
+    transition: background-color .4s;
+}
+
+.closeCross {
+    display: block;
+    width: 28px;
+    height: 28px;
+    position: relative;
+}
+
+.closeCross::before,
+.closeCross::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--gray-color);
+    transform: translateY(-50%);
+}
+
+.closeCross::before {
+    transform: rotate(45deg);
+}
+
+.closeCross::after {
+    transform: rotate(-45deg);
+}
+
+.blockSearch {
+    margin-top: 45px;
+}
+
+.degrees {
+    display: flex;
+}
+
+.degreesNumber {
+    color: var(--gray-color);
+    font-weight: 900;
+    font-size: 96px;
+    margin-top: 0;
+    margin-bottom: 0;
+    transition: color .4s;
+}
+
+.degreesBlock {
+    width: 70px;
+    margin-top: 67px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.degreesMorning {
+    color: var(--gray-color);
+    font-weight: var(--weight400);
+    font-size: 14px;
+    transition: color .4s;
+}
+
+.degreesHour {
+    margin-top: 67px;
+}
+
+.degreesEvening {
+    color: rgba(211, 211, 211, 1);
+    font-weight: var(--weight400);
+    transition: color .4s;
+}
+
+.celsius {
+    font-size: 50px;
+    font-weight: var(--weight500);
+    margin-top: 43px;
+    margin-left: 15px;
+    margin-bottom: 0;
+    color: var(--gray-color);
+    transition: color .4s;
+}
+
+.weatherElement {
+    color: var(--gray-color);
+    font-size: 36px;
+    font-weight: var(--weight700);
+    margin-top: 10px;
+    transition: color .4s
+}
+
+.temperatureSensation {
+    color: var(--otherGray-color);
+    font-weight: var(--weight400);
+    font-size: var(--fsize18);
+    margin-top: 25px;
+}
+
+.bottomDate {
+    margin-top: 80px;
+    display: flex;
+    width: 270px;
+    justify-content: space-between;
+}
+
+.today {
+    color: var(--otherGray-color);
+    font-size: var(--fsize18);
+}
+
+.city {
+    color: var(--otherGray-color);
+    font-size: var(--fsize18);
+    background-image: url('/src/img/markYandex.svg');
+    background-repeat: no-repeat;
+    background-position-y: 30%;
+    margin-top: 30px;
+    padding-top: 15px;
+    padding-left: 40px;
+    width: 100px;
+    height: 40px;
+}
+
+/* dark-themes */
+
+.leftSide.dark-mode,
+.searchPanel.dark-mode,
+.closeBtn.dark-mode {
+    background-color: var(--dark-theme);
+}
+
+.btnSearchCity.dark-mode,
+.inputSearch.dark-mode {
+    background-color: var(--dark-theme);
+    color: var(--lightGray);
+    font-weight: var(--weight500);
+}
+
+.btnSearch.dark-mode {
+    background-color: var(--dark-theme);
+    color: var(--lightGray);
+}
+
+.closeCross.dark-mode::before,
+.closeCross.dark-mode::after {
+    background-color: var(--lightGray);
+}
+
+.degreesNumber.dark-mode,
+.celsius.dark-mode,
+.weatherElement.dark-mode {
+    color: var(--lightGray);
+}
+
+@media (max-width: 1439px) {
+
+    .LeftSideBtns {
+        max-width: 280px;
+        width: 100%;
+    }
+
+    .leftSide {
+        max-width: 329px;
+        background-position-y: 35%;
+        background-size: 100%;
+    }
+
+    .closeBtn {
+        margin-top: 59px;
+    }
+
+    .searchPanel {
+        z-index: 1;
+        height: 100%;
+    }
+
+    .blockSearch {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .inputSearch,
+    .btnSearch {
+        margin-left: 0
+    }
+
+    .btnSearch {
+        margin-top: 20px;
+    }
+
+    .blockInfoDegrees {
+        position: absolute;
+        bottom: 0;
+    }
+
+    .snowflake {
+        position: absolute;
+        top: 30%;
+    }
+
+}
+
+@media (max-width: 833px) {
+
+    .leftSide {
+        height: 667px;
+        background-position-y: 20%;
+        max-width: 375px;
+    }
+
+    .LeftSideBtns {
+        margin-top: 31px;
+        max-width: 315px;
+        width: 100%;
+    }
+
+    .snowflake {
+        position: static;
+    }
+
+    .city {
+        margin-bottom: 24px;
+    }
+
+}
