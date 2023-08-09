@@ -5,7 +5,6 @@ import RightSide from './rightSide/RightSide';
 import { useState } from 'react';
 
 function App() {
-
   const [darkMode, setDarkMode] = useState(false);
 
   const handleDarkModeToggle = () => {

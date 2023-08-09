@@ -1,20 +1,62 @@
 import React, { useState } from 'react';
 import './leftSide.css';
+import BtnSearchResults from './btnSearchResults/BtnSearchResults';
+import GetDataSearch from './getDataSearch/GetDataSearch';
 
 function LeftSide({ darkMode, handleDarkModeToggle }) {
     const [open, setOpen] = useState(false);
+    const [searchValue, setSearchValue] = useState('');
+    const [cities, setCities] = useState([]);
+    const [searchResultsEmpty, setSearchResultsEmpty] = useState(false);
+    const [lastSearches, setLastSearches] = useState([]);
 
     const handleClickDarkTheme = () => {
         handleDarkModeToggle();
-    }
+    };
 
     const handleClick = () => {
         setOpen(true);
-    }
+    };
 
     const handleClose = () => {
         setOpen(false);
-    }
+    };
+
+    const handleCloseSearchResults = () => {
+        setOpen(false);
+        setSearchValue('');
+        setCities([]);
+        if (searchValue) {
+            setLastSearches([searchValue, ...lastSearches.slice(0, 4)]);
+            console.log(searchValue);
+        }
+
+    };
+
+    const handleInputChange = (e) => {
+        setSearchValue(e.target.value);
+        // const inputValue = e.target.value;
+        // const russianCharactersRegex = /^[А-Яа-яЁё\s]+$/;
+        // if (russianCharactersRegex.test(inputValue) || inputValue === "") {
+        //     setSearchValue(inputValue);
+        // }
+    };
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (searchValue) {
+            const data = await GetDataSearch(searchValue);
+            const cityNames = data.map((item) => item.name);
+            setCities(cityNames);
+
+            if (cityNames.length === 0) {
+                setSearchResultsEmpty(true);
+            } else {
+                setSearchResultsEmpty(false);
+            }
+        }
+    };
 
     return (
         <section className={`leftSide ${darkMode ? 'dark-mode' : ''}`}>
@@ -36,10 +78,43 @@ function LeftSide({ darkMode, handleDarkModeToggle }) {
                 <button className={`closeBtn ${darkMode ? 'dark-mode' : ''}`} onClick={handleClose}>
                     <span className={`closeCross ${darkMode ? 'dark-mode' : ''}`}></span>
                 </button>
-                <div className="blockSearch">
-                    <input type="text" className={`inputSearch ${darkMode ? 'dark-mode' : ''}`} placeholder="Москва" />
-                    <button className={`btnSearch ${darkMode ? 'dark-mode' : ''}`}>Найти</button>
-                </div>
+                <form onSubmit={handleSubmit} className="blockSearch">
+                    <input
+                        type="text"
+                        className={`inputSearch ${darkMode ? 'dark-mode' : ''}`}
+                        placeholder="Москва"
+                        value={searchValue}
+                        onChange={handleInputChange}
+                        pattern="[А-Яа-яЁё\s\-]+"
+                    />
+                    <button
+                        type="submit"
+                        className={`btnSearch ${darkMode ? 'dark-mode' : ''}`}
+                    >
+                        Найти
+                    </button>
+                </form>
+                <p className={`lastSearch ${darkMode ? 'dark-mode' : ''}`}>Последние запросы:</p>
+                {lastSearches.map((search, index) => (
+                    <button
+                        key={index}
+                        className={`btnLastSearch ${darkMode ? 'dark-mode' : ''}`}
+                        onClick={handleCloseSearchResults}
+                    >
+                        {search}
+                    </button>
+                ))}
+
+                {searchResultsEmpty && <p className={`noResults ${darkMode ? 'dark-mode' : ''}`}>Упс! Город не найден, попробуйте другой</p>}
+                {cities.map((city, index) => (
+                    <BtnSearchResults
+                        darkMode={darkMode}
+                        key={index}
+                        city={city}
+                        onClick={handleCloseSearchResults}
+                    />
+                ))}
+
             </div>
             <svg className='snowflake' width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <rect width="200" height="200" fill="url(#pattern0)" />
@@ -63,8 +138,9 @@ function LeftSide({ darkMode, handleDarkModeToggle }) {
                 </div>
                 <span className="city">Москва</span>
             </div>
-        </section>
+        </section >
     );
 }
 
 export default LeftSide;
+

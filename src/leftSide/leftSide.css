@@ -107,12 +107,12 @@ input:checked+.slider+.moon>path {
 .inputSearch {
     width: 210px;
     height: 45px;
-    margin-left: 45px;
     border: 2px solid #acacac;
     outline: #acacac;
     border-radius: 10px;
     background-color: white;
     font-size: var(--fsize18);
+    font-weight: 500;
     background-image: url('/src/img/search.svg');
     background-repeat: no-repeat;
     background-position-x: 5%;
@@ -146,6 +146,7 @@ input:checked+.slider+.moon>path {
 .searchPanel {
     display: flex;
     flex-direction: column;
+    align-items: center;
     position: absolute;
     top: 0;
     opacity: 0;
@@ -202,6 +203,7 @@ input:checked+.slider+.moon>path {
 
 .blockSearch {
     margin-top: 45px;
+    margin-bottom: 20px;
 }
 
 .degrees {
@@ -291,6 +293,30 @@ input:checked+.slider+.moon>path {
     height: 40px;
 }
 
+.lastSearch {
+    font-size: var(--fsize18);
+    font-weight: 500px;
+}
+
+.noResults {
+    max-width: 270px;
+    text-align: center;
+    font-size: var(--fsize18);
+    font-weight: var(--weight500);
+}
+
+.btnLastSearch {
+    max-width: 200px;
+    width: 100%;
+    border: 0;
+    border-radius: 8px;
+    margin-top: 5px;
+    height: 40px;
+    font-size: var(--fsize18);
+    font-weight: var(--weight500);
+    outline: 2px solid var(--otherGray-color);
+}
+
 /* dark-themes */
 
 .leftSide.dark-mode,
@@ -318,8 +344,16 @@ input:checked+.slider+.moon>path {
 
 .degreesNumber.dark-mode,
 .celsius.dark-mode,
-.weatherElement.dark-mode {
+.weatherElement.dark-mode,
+.noResults.dark-mode,
+.lastSearch.dark-mode {
     color: var(--lightGray);
+}
+
+.btnLastSearch.dark-mode {
+    background-color: var(--dark-theme);
+    color: var(--lightGray);
+    outline: 1px solid var(--lightGray);
 }
 
 @media (max-width: 1439px) {
@@ -377,6 +411,16 @@ input:checked+.slider+.moon>path {
         height: 667px;
         background-position-y: 20%;
         max-width: 375px;
+    }
+
+    .blockSearch {
+        max-width: 321px;
+        width: 100%;
+    }
+
+    .inputSearch {
+        max-width: 281px;
+        width: 100%;
     }
 
     .LeftSideBtns {
