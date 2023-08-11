@@ -67,6 +67,8 @@ input:checked+.slider+.moon>path {
     max-width: 460px;
     width: 100%;
     background-image: url('/src/img/Cloud-background.svg');
+    background-blend-mode: difference;
+    background-size: contain;
     background-repeat: no-repeat;
     background-position-y: 13%;
     display: flex;
@@ -293,28 +295,11 @@ input:checked+.slider+.moon>path {
     height: 40px;
 }
 
-.lastSearch {
-    font-size: var(--fsize18);
-    font-weight: 500px;
-}
-
 .noResults {
     max-width: 270px;
     text-align: center;
     font-size: var(--fsize18);
     font-weight: var(--weight500);
-}
-
-.btnLastSearch {
-    max-width: 200px;
-    width: 100%;
-    border: 0;
-    border-radius: 8px;
-    margin-top: 5px;
-    height: 40px;
-    font-size: var(--fsize18);
-    font-weight: var(--weight500);
-    outline: 2px solid var(--otherGray-color);
 }
 
 /* dark-themes */
@@ -345,15 +330,8 @@ input:checked+.slider+.moon>path {
 .degreesNumber.dark-mode,
 .celsius.dark-mode,
 .weatherElement.dark-mode,
-.noResults.dark-mode,
-.lastSearch.dark-mode {
+.noResults.dark-mode {
     color: var(--lightGray);
-}
-
-.btnLastSearch.dark-mode {
-    background-color: var(--dark-theme);
-    color: var(--lightGray);
-    outline: 1px solid var(--lightGray);
 }
 
 @media (max-width: 1439px) {

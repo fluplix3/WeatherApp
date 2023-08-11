@@ -3,9 +3,11 @@ import './rightSide.css';
 import MoreDetails from './moreDetails/MoreDetails';
 import CardForecastWeek from './cardForecast/cardForecastWeek/CardForecastWeek';
 import CardForecastHour from './cardForecast/cardForecastHour/CardForecastHour';
+import Loader from '../loader/Loader';
 
 function RightSide({ darkMode }) {
     const [activeTab, setActiveTab] = useState('week');
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleTabClick = (tab) => {
         setActiveTab(tab);
@@ -47,24 +49,32 @@ function RightSide({ darkMode }) {
                     {activeTab === 'week'
                         ?
                         <ul className='cardList cardListWeek'>
-                            <CardForecastWeek darkMode={darkMode} />
-                            <CardForecastWeek darkMode={darkMode} />
-                            <CardForecastWeek darkMode={darkMode} />
-                            <CardForecastWeek darkMode={darkMode} />
-                            <CardForecastWeek darkMode={darkMode} />
-                            <CardForecastWeek darkMode={darkMode} />
+                            {isLoading ? <Loader darkMode={darkMode} /> :
+                                <>
+                                    <CardForecastWeek darkMode={darkMode} />
+                                    <CardForecastWeek darkMode={darkMode} />
+                                    <CardForecastWeek darkMode={darkMode} />
+                                    <CardForecastWeek darkMode={darkMode} />
+                                    <CardForecastWeek darkMode={darkMode} />
+                                    <CardForecastWeek darkMode={darkMode} />
+                                </>
+                            }
                         </ul>
                         :
                         <ul className="cardList cardListHour">
-                            <CardForecastHour darkMode={darkMode} />
-                            <CardForecastHour darkMode={darkMode} />
-                            <CardForecastHour darkMode={darkMode} />
-                            <CardForecastHour darkMode={darkMode} />
-                            <CardForecastHour darkMode={darkMode} />
-                            <CardForecastHour darkMode={darkMode} />
-                            <CardForecastHour darkMode={darkMode} />
-                            <CardForecastHour darkMode={darkMode} />
-                            <CardForecastHour darkMode={darkMode} />
+                            {isLoading ? <Loader /> :
+                                <>
+                                    <CardForecastHour darkMode={darkMode} />
+                                    <CardForecastHour darkMode={darkMode} />
+                                    <CardForecastHour darkMode={darkMode} />
+                                    <CardForecastHour darkMode={darkMode} />
+                                    <CardForecastHour darkMode={darkMode} />
+                                    <CardForecastHour darkMode={darkMode} />
+                                    <CardForecastHour darkMode={darkMode} />
+                                    <CardForecastHour darkMode={darkMode} />
+                                    <CardForecastHour darkMode={darkMode} />
+                                </>
+                            }
                         </ul>
                     }
                     <MoreDetails darkMode={darkMode} />

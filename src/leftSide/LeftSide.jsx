@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './leftSide.css';
 import BtnSearchResults from './btnSearchResults/BtnSearchResults';
 import GetDataSearch from './getDataSearch/GetDataSearch';
+import Loader from '../loader/Loader';
+import getWeather from './getWeather/getWeather';
 
 function LeftSide({ darkMode, handleDarkModeToggle }) {
     const [open, setOpen] = useState(false);
@@ -9,11 +11,14 @@ function LeftSide({ darkMode, handleDarkModeToggle }) {
     const [cities, setCities] = useState([]);
     const [searchResultsEmpty, setSearchResultsEmpty] = useState(false);
     const [lastSearches, setLastSearches] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
+    //Переключение на темную тему
     const handleClickDarkTheme = () => {
         handleDarkModeToggle();
     };
 
+    //Открытие/Закрытие боковой панели
     const handleClick = () => {
         setOpen(true);
     };
@@ -22,31 +27,44 @@ function LeftSide({ darkMode, handleDarkModeToggle }) {
         setOpen(false);
     };
 
-    const handleCloseSearchResults = () => {
+    //Закрытие боковой панели после успешного запроса
+    const handleCloseSearchResults = (cityNames) => {
         setOpen(false);
         setSearchValue('');
         setCities([]);
-        if (searchValue) {
-            setLastSearches([searchValue, ...lastSearches.slice(0, 4)]);
-            console.log(searchValue);
-        }
 
+        if (searchValue) {
+            const city = cityNames[0];
+            setLastSearches([city, ...lastSearches.slice(0, 4)]);
+        }
     };
 
+    //Закрытие боковой панели после клика на город из истории поиска
+    const handleCloseLastSearch = () => {
+        getWeather();
+        setOpen(false);
+        setSearchValue('');
+        setCities([]);
+    }
+
+    //Контролируемый инпут и поиск только по кириллице
     const handleInputChange = (e) => {
         setSearchValue(e.target.value);
-        // const inputValue = e.target.value;
-        // const russianCharactersRegex = /^[А-Яа-яЁё\s]+$/;
-        // if (russianCharactersRegex.test(inputValue) || inputValue === "") {
-        //     setSearchValue(inputValue);
-        // }
+        const inputValue = e.target.value;
+        const russianCharactersRegex = /[А-Яа-яЁё\s\-]+/;
+        if (russianCharactersRegex.test(inputValue) || inputValue === "") {
+            setSearchValue(inputValue);
+        }
     };
 
-
+    //Взаимодействие с формой поиска
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (searchValue) {
+            setIsLoading(true); // установить isLoading в true перед вызовом GetDataSearch
             const data = await GetDataSearch(searchValue);
+            setIsLoading(false); // установить isLoading в false после получения результатов
+
             const cityNames = data.map((item) => item.name);
             setCities(cityNames);
 
@@ -54,6 +72,7 @@ function LeftSide({ darkMode, handleDarkModeToggle }) {
                 setSearchResultsEmpty(true);
             } else {
                 setSearchResultsEmpty(false);
+                handleCloseSearchResults(cityNames);
             }
         }
     };
@@ -86,7 +105,7 @@ function LeftSide({ darkMode, handleDarkModeToggle }) {
                         value={searchValue}
                         onChange={handleInputChange}
                         pattern="[А-Яа-яЁё\s\-]+"
-                    />
+                    /> 
                     <button
                         type="submit"
                         className={`btnSearch ${darkMode ? 'dark-mode' : ''}`}
@@ -94,26 +113,25 @@ function LeftSide({ darkMode, handleDarkModeToggle }) {
                         Найти
                     </button>
                 </form>
-                <p className={`lastSearch ${darkMode ? 'dark-mode' : ''}`}>Последние запросы:</p>
-                {lastSearches.map((search, index) => (
-                    <button
+                {lastSearches.map((city, index) => (
+                    <BtnSearchResults
+                        darkMode={darkMode}
                         key={index}
-                        className={`btnLastSearch ${darkMode ? 'dark-mode' : ''}`}
-                        onClick={handleCloseSearchResults}
-                    >
-                        {search}
-                    </button>
+                        city={city}
+                        onClick={handleCloseLastSearch}
+                    />
                 ))}
 
                 {searchResultsEmpty && <p className={`noResults ${darkMode ? 'dark-mode' : ''}`}>Упс! Город не найден, попробуйте другой</p>}
-                {cities.map((city, index) => (
+                {isLoading ? <Loader darkMode={darkMode} /> : cities.map((city, index) => (
                     <BtnSearchResults
                         darkMode={darkMode}
                         key={index}
                         city={city}
                         onClick={handleCloseSearchResults}
                     />
-                ))}
+                ))
+                }
 
             </div>
             <svg className='snowflake' width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
