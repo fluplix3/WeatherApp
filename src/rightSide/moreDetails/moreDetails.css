@@ -48,7 +48,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 211px;
+    width: 250px;
     margin-top: 15px;
 }
 
@@ -61,6 +61,48 @@
     font-weight: 900;
     color: var(--gray-color);
     transition: background-color .4s;
+}
+
+.humiditylFill {
+    width: 273px;
+    height: 43px;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.humidityNumbers {
+    display: flex;
+    justify-content: space-between;
+}
+
+.humidityPercent {
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.percent {
+    align-self: flex-end;
+    font-size: 12px;
+    font-weight: 300;
+    padding-right: 5px;
+}
+
+.humidityScale {
+    position: absolute;
+    margin-top: 14px;
+    width: 270px;
+    height: 11px;
+    border-radius: 10px;
+    background: #E6E6E6;
+}
+
+.humidityScaleOrange {
+    height: 11px;
+    z-index: 1;
+    background-color: #EC6E4D;
+    border-radius: 10px;
+    max-width: 270px;
 }
 
 .unitsDetails {
@@ -106,7 +148,9 @@
 .unitsDetails.dark-mode,
 .unitsMercury.dark-mode,
 .wind.dark-mode,
-.moreDetailsTitle.dark-mode {
+.moreDetailsTitle.dark-mode,
+.humidityPercent.dark-mode,
+.percent.dark-mode {
     color: var(--lightGray);
 }
 

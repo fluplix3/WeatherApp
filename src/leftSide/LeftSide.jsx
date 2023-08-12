@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './leftSide.css';
 import BtnSearchResults from './btnSearchResults/BtnSearchResults';
-import GetDataSearch from './getDataSearch/GetDataSearch';
+import GetDataSearch from '../getData/GetDataSearch';
 import Loader from '../loader/Loader';
-import getWeather from './getWeather/getWeather';
 
 function LeftSide({ darkMode, handleDarkModeToggle }) {
     const [open, setOpen] = useState(false);
@@ -33,19 +32,30 @@ function LeftSide({ darkMode, handleDarkModeToggle }) {
         setSearchValue('');
         setCities([]);
 
-        if (searchValue) {
-            const city = cityNames[0];
-            setLastSearches([city, ...lastSearches.slice(0, 4)]);
-        }
+        const city = cityNames[0];
+
+        const storedLastSearches = localStorage.getItem('lastSearches');
+        const parsedLastSearches = storedLastSearches ? JSON.parse(storedLastSearches) : [];
+        const updatedSearches = [city, ...parsedLastSearches.slice(0, 4)];
+
+        localStorage.setItem('lastSearches', JSON.stringify(updatedSearches));
+        setLastSearches(updatedSearches);
     };
 
     //Закрытие боковой панели после клика на город из истории поиска
-    const handleCloseLastSearch = () => {
-        getWeather();
+    const handleCloseLastSearch = (city) => {
         setOpen(false);
         setSearchValue('');
         setCities([]);
-    }
+
+        const storedLastSearches = localStorage.getItem('lastSearches');
+        const parsedLastSearches = JSON.parse(storedLastSearches) || [];
+        const updatedSearches = parsedLastSearches.filter((search) => search !== city);
+
+        localStorage.setItem('lastSearches', JSON.stringify(updatedSearches));
+        setLastSearches(updatedSearches);
+        window.location.reload();
+    };
 
     //Контролируемый инпут и поиск только по кириллице
     const handleInputChange = (e) => {
@@ -59,7 +69,7 @@ function LeftSide({ darkMode, handleDarkModeToggle }) {
 
     //Взаимодействие с формой поиска
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
         if (searchValue) {
             setIsLoading(true); // установить isLoading в true перед вызовом GetDataSearch
             const data = await GetDataSearch(searchValue);
@@ -73,9 +83,16 @@ function LeftSide({ darkMode, handleDarkModeToggle }) {
             } else {
                 setSearchResultsEmpty(false);
                 handleCloseSearchResults(cityNames);
+                window.location.reload();
             }
         }
     };
+
+    useEffect(() => {
+        const storedLastSearches = localStorage.getItem('lastSearches');
+        const parsedLastSearches = JSON.parse(storedLastSearches) || [];
+        setLastSearches(parsedLastSearches);
+    }, []);
 
     return (
         <section className={`leftSide ${darkMode ? 'dark-mode' : ''}`}>
@@ -99,13 +116,13 @@ function LeftSide({ darkMode, handleDarkModeToggle }) {
                 </button>
                 <form onSubmit={handleSubmit} className="blockSearch">
                     <input
-                        type="text"
+                        type="search"
                         className={`inputSearch ${darkMode ? 'dark-mode' : ''}`}
                         placeholder="Москва"
                         value={searchValue}
                         onChange={handleInputChange}
                         pattern="[А-Яа-яЁё\s\-]+"
-                    /> 
+                    />
                     <button
                         type="submit"
                         className={`btnSearch ${darkMode ? 'dark-mode' : ''}`}
@@ -113,10 +130,10 @@ function LeftSide({ darkMode, handleDarkModeToggle }) {
                         Найти
                     </button>
                 </form>
-                {lastSearches.map((city, index) => (
+                {lastSearches.map((city) => (
                     <BtnSearchResults
                         darkMode={darkMode}
-                        key={index}
+                        key={city}
                         city={city}
                         onClick={handleCloseLastSearch}
                     />

@@ -63,6 +63,13 @@ input:checked+.slider+.moon>path {
     fill: var(--dark-theme);
 }
 
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+    display: none;
+}
+
 .leftSide {
     max-width: 460px;
     width: 100%;
@@ -76,6 +83,7 @@ input:checked+.slider+.moon>path {
     align-items: center;
     position: relative;
     transition: background-color .4s;
+    background-color: white;
 }
 
 .LeftSideBtns {
@@ -107,8 +115,8 @@ input:checked+.slider+.moon>path {
 }
 
 .inputSearch {
-    width: 210px;
-    height: 45px;
+    width: 250px;
+    height: 50px;
     border: 2px solid #acacac;
     outline: #acacac;
     border-radius: 10px;
@@ -362,6 +370,10 @@ input:checked+.slider+.moon>path {
         align-items: center;
     }
 
+    .inputSearch {
+        width: 275px;
+    }
+
     .inputSearch,
     .btnSearch {
         margin-left: 0
@@ -397,8 +409,7 @@ input:checked+.slider+.moon>path {
     }
 
     .inputSearch {
-        max-width: 281px;
-        width: 100%;
+        max-width: 275px;
     }
 
     .LeftSideBtns {
