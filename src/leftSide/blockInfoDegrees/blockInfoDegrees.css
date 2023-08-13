@@ -1,0 +1,89 @@
+.blockInfoDegrees {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.degrees {
+    display: flex;
+}
+
+.degreesNumber {
+    color: var(--gray-color);
+    font-weight: 900;
+    font-size: 96px;
+    margin-top: 0;
+    margin-bottom: 0;
+    transition: color .4s;
+}
+
+.celsius {
+    font-size: 50px;
+    font-weight: var(--weight500);
+    margin-top: 43px;
+    margin-left: 15px;
+    margin-bottom: 0;
+    color: var(--gray-color);
+    transition: color .4s;
+}
+
+.weatherElement {
+    color: var(--gray-color);
+    font-size: 24px;
+    font-weight: var(--weight700);
+    margin-top: 10px;
+    transition: color .4s
+}
+
+.temperatureSensation {
+    color: var(--otherGray-color);
+    font-weight: var(--weight400);
+    font-size: var(--fsize18);
+    margin-top: 25px;
+}
+
+.bottomDate {
+    margin-top: 80px;
+    display: flex;
+    width: 270px;
+    justify-content: space-between;
+}
+
+.today {
+    color: var(--otherGray-color);
+    font-size: var(--fsize18);
+}
+
+.city {
+    color: var(--otherGray-color);
+    font-size: var(--fsize18);
+    background-image: url('/src/img/markYandex.svg');
+    background-repeat: no-repeat;
+    background-position-y: 30%;
+    margin-top: 30px;
+    padding-top: 15px;
+    padding-left: 40px;
+    width: 100px;
+    height: 40px;
+}
+
+/* dark-themes */
+
+.degreesNumber.dark-mode,
+.celsius.dark-mode,
+.weatherElement.dark-mode {
+    color: var(--lightGray);
+}
+
+@media (max-width: 1439px) {
+    .blockInfoDegrees {
+        position: absolute;
+        bottom: 0;
+    }
+}
+
+@media (max-width: 833px) {
+    .city {
+        margin-bottom: 24px;
+    }
+}
