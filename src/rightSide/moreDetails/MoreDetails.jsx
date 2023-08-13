@@ -6,6 +6,12 @@ import getWeather from '../../getData/getWeather';
 function MoreDetails({ darkMode }) {
     const [isLoading, setIsLoading] = useState(false);
     const [weatherData, setWeatherData] = useState(null);
+    const directions = ['С', 'СВ', 'В', 'ЮВ', 'Ю', 'ЮЗ', 'З', 'СЗ'];
+
+    function getWindDirection() {
+        const index = Math.round(Math.round((weatherData ? weatherData.wind.deg : 0) / 45)) % 8;
+        return directions[index];
+    }
 
     const fetchData = async () => {
         try {
@@ -37,8 +43,8 @@ function MoreDetails({ darkMode }) {
                             <span className={`unitsDetails ${darkMode ? 'dark-mode' : ''}`}>м/с</span>
                         </div>
                         <div className="windDetailsBlock">
-                            <img src={require('../../img/windIndicator.svg').default} alt="Скорость ветра" />
-                            <span className={`wind ${darkMode ? 'dark-mode' : ''}`}>СЗ</span>
+                            <img src={require('../../img/windIndicator.svg').default} style={{transform: `rotate(${weatherData ? weatherData.wind.deg : 0}deg)`}} alt="Скорость ветра" />
+                            <span className={`wind ${darkMode ? 'dark-mode' : ''}`}>{weatherData ? getWindDirection() : "СЗ"}</span>
                         </div>
                     </li>
                     <li className={`cardDetails ${darkMode ? 'dark-mode' : ''}`}>

@@ -36,9 +36,12 @@ function LeftSide({ darkMode, handleDarkModeToggle }) {
 
         const storedLastSearches = localStorage.getItem('lastSearches');
         const parsedLastSearches = storedLastSearches ? JSON.parse(storedLastSearches) : [];
-        const updatedSearches = [city, ...parsedLastSearches.slice(0, 4)];
+        const updatedSearches = [city, ...parsedLastSearches]
+            .filter((value, index, self) => self.indexOf(value) === index)
+            .slice(0, 5);
 
         localStorage.setItem('lastSearches', JSON.stringify(updatedSearches));
+
         setLastSearches(updatedSearches);
     };
 
