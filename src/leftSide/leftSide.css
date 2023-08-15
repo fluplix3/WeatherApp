@@ -11,7 +11,7 @@
     height: 0;
 }
 
-.slider {
+.sliderMoon {
     position: absolute;
     top: 0;
     left: 0;
@@ -24,7 +24,7 @@
     cursor: pointer;
 }
 
-.slider::before {
+.sliderMoon::before {
     position: absolute;
     content: "";
     height: 20px;
@@ -45,21 +45,21 @@
     cursor: pointer;
 }
 
-input:checked+.slider,
+input:checked+.sliderMoon,
 input:checked+.moon {
     background-color: var(--dark-theme);
 }
 
-input:checked+.slider:before {
+input:checked+.sliderMoon:before {
     transform: translateX(32px);
     background-color: rgba(236, 110, 77, 1);
 }
 
-input:checked+.slider+.moon {
+input:checked+.sliderMoon+.moon {
     transform: translateX(32px);
 }
 
-input:checked+.slider+.moon>path {
+input:checked+.sliderMoon+.moon>path {
     fill: var(--dark-theme);
 }
 
@@ -166,6 +166,12 @@ input[type="search"]::-webkit-search-results-decoration {
     transform: translateX(0);
 }
 
+.error {
+    position: absolute;
+    color: red;
+    margin-top: 60px;
+}
+
 .closeBtn {
     border: 0;
     width: 26px;
@@ -217,21 +223,8 @@ input[type="search"]::-webkit-search-results-decoration {
     justify-content: space-between;
 }
 
-.degreesMorning {
-    color: var(--gray-color);
-    font-weight: var(--weight400);
-    font-size: 14px;
-    transition: color .4s;
-}
-
 .degreesHour {
     margin-top: 67px;
-}
-
-.degreesEvening {
-    color: rgba(211, 211, 211, 1);
-    font-weight: var(--weight400);
-    transition: color .4s;
 }
 
 .noResults {

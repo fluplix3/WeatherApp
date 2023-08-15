@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './leftSide.css';
 import BtnSearchResults from './btnSearchResults/BtnSearchResults';
-import GetDataSearch from '../getData/GetDataSearch';
+import getDataSearch from '../getData/getDataSearch';
 import Loader from '../loader/Loader';
 import BlockInfoDegrees from './blockInfoDegrees/BlockInfoDegrees';
 
@@ -12,6 +12,8 @@ function LeftSide({ darkMode, handleDarkModeToggle }) {
     const [searchResultsEmpty, setSearchResultsEmpty] = useState(false);
     const [lastSearches, setLastSearches] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [hasError, setHasError] = useState(false);
+    const regexPattern = new RegExp("[А-Яа-яЁё\s\-]+");
 
     //Переключение на темную тему
     const handleClickDarkTheme = () => {
@@ -75,12 +77,19 @@ function LeftSide({ darkMode, handleDarkModeToggle }) {
     const handleSubmit = async (e) => {
         e.preventDefault()
         if (searchValue) {
-            setIsLoading(true); // установить isLoading в true перед вызовом GetDataSearch
-            const data = await GetDataSearch(searchValue);
-            setIsLoading(false); // установить isLoading в false после получения результатов
+            setIsLoading(true); 
+            const data = await getDataSearch(searchValue);
+            setIsLoading(false); 
 
             const cityNames = data.map((item) => item.name);
             setCities(cityNames);
+
+            if (regexPattern.test(searchValue)) {
+                setHasError(false);
+            } else {
+                setHasError(true);
+            }
+
 
             if (cityNames.length === 0) {
                 setSearchResultsEmpty(true);
@@ -104,7 +113,7 @@ function LeftSide({ darkMode, handleDarkModeToggle }) {
                 <button className={`btnSearchCity ${darkMode ? 'dark-mode' : ''}`} onClick={handleClick}>Поиск города</button>
                 <label className="switch">
                     <input onClick={handleClickDarkTheme} type="checkbox" id="darkModeToggle" />
-                    <span className="slider">
+                    <span className="sliderMoon">
                     </span>
                     <svg className="moon" width="13" height="13" viewBox="0 0 13 13" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -119,13 +128,13 @@ function LeftSide({ darkMode, handleDarkModeToggle }) {
                     <span className={`closeCross ${darkMode ? 'dark-mode' : ''}`}></span>
                 </button>
                 <form onSubmit={handleSubmit} className="blockSearch">
+                {hasError && <p className="error">Используйте только кириллицу</p>}
                     <input
                         type="search"
                         className={`inputSearch ${darkMode ? 'dark-mode' : ''}`}
                         placeholder="Москва"
                         value={searchValue}
                         onChange={handleInputChange}
-                        pattern="[А-Яа-яЁё\s\-]+"
                     />
                     <button
                         type="submit"

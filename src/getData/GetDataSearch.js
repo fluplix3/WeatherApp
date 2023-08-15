@@ -1,6 +1,4 @@
-import getWeather from "./getWeather";
-
-const GetDataSearch = async (searchValue) => {
+const getDataSearch = async (searchValue) => {
     try {
         const response = await fetch(`https://nominatim.openstreetmap.org/search.php?q=${searchValue}&format=json&addressdetails=1&limit=5&lang=ru`);
         const data = await response.json();
@@ -9,7 +7,6 @@ const GetDataSearch = async (searchValue) => {
             let lon = data[0].lon;
             localStorage.setItem('lat', lat);
             localStorage.setItem('lon', lon);
-            console.log(getWeather());
         }
         return data;
     } catch (error) {
@@ -17,4 +14,4 @@ const GetDataSearch = async (searchValue) => {
     }
 };
 
-export default GetDataSearch;
+export default getDataSearch;

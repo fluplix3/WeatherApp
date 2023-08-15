@@ -4,7 +4,6 @@ import getWeather from '../../getData/getWeather';
 
 function BlockInfoDegrees({ darkMode }) {
     const [weatherData, setWeatherData] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
     const months = [
         'янв', 'фев', 'мар', 'апр', 'май', 'июн',
         'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'
@@ -13,13 +12,10 @@ function BlockInfoDegrees({ darkMode }) {
 
     const fetchData = async () => {
         try {
-            setIsLoading(true);
             const data = await getWeather();
             setWeatherData(data);
-            setIsLoading(false);
         } catch (error) {
             console.error(error);
-            setIsLoading(false);
         }
     }
 
