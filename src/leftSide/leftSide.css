@@ -216,6 +216,11 @@ input[type="search"]::-webkit-search-results-decoration {
     margin-bottom: 20px;
 }
 
+.iconWeather {
+    width: 200px;
+    height: 200px;
+}
+
 .degreesBlock {
     width: 70px;
     margin-top: 67px;
@@ -304,7 +309,7 @@ input[type="search"]::-webkit-search-results-decoration {
         margin-top: 20px;
     }
 
-    .snowflake {
+    .iconWeather {
         position: absolute;
         top: 30%;
     }
@@ -334,7 +339,7 @@ input[type="search"]::-webkit-search-results-decoration {
         width: 100%;
     }
 
-    .snowflake {
+    .iconWeather {
         position: static;
     }
 

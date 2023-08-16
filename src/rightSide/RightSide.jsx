@@ -122,8 +122,8 @@ function RightSide({ darkMode }) {
                                                         darkMode={darkMode}
                                                         day={formattedDate}
                                                         img={item.weather[0].icon}
-                                                        degreesMorning={Math.round(item.main.temp_min / 10)}
-                                                        degreesEvening={Math.round(item.main.temp_max / 10)}
+                                                        degreesMorning={Math.round(item.main.temp_min)}
+                                                        degreesEvening={Math.round(item.main.temp_max)}
                                                     />
 
                                                 );
@@ -139,8 +139,8 @@ function RightSide({ darkMode }) {
                                                         darkMode={darkMode}
                                                         day={formattedDate}
                                                         img={item.weather[0].icon}
-                                                        degreesMorning={Math.round(item.main.temp_min / 10)}
-                                                        degreesEvening={Math.round(item.main.temp_max / 10)}
+                                                        degreesMorning={Math.round(item.main.temp_min)}
+                                                        degreesEvening={Math.round(item.main.temp_max)}
                                                     />
 
                                                 );
@@ -176,7 +176,7 @@ function RightSide({ darkMode }) {
                                                         darkMode={darkMode}
                                                         img={item.weather[0].icon}
                                                         time={item.dt_txt}
-                                                        degrees={Math.round(item.main.temp / 10)}
+                                                        degrees={Math.round(item.main.temp)}
                                                     />
                                                 );
                                             })}

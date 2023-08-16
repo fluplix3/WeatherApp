@@ -21,7 +21,7 @@
     transition: all 250ms linear;
     -ms-overflow-style: none;
     scrollbar-width: none;
-    max-width: 720px;
+    max-width: 750px;
 }
 
 .carousel-content::-webkit-scrollbar,
