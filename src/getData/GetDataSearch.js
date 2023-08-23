@@ -8,7 +8,6 @@ const getDataSearch = async (searchValue) => {
             localStorage.setItem('lat', lat);
             localStorage.setItem('lon', lon);
         }
-        console.log(data)
         return data;
     } catch (error) {
         console.error(error);

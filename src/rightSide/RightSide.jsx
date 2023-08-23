@@ -10,12 +10,12 @@ import Carousel from './carousel/Carousel';
 import BtnCarousel from './btnCarousel/BtnCarousel';
 
 function RightSide({ darkMode }) {
-    const [activeTab, setActiveTab] = useState('week');
+    const [activeTab, setActiveTab] = useState('hour');
     const [isLoading, setIsLoading] = useState(false);
     const [weather, setWeather] = useState([]);
     const [currentIndexDay, setCurrentIndexDay] = useState(0);
     const [currentIndexHour, setCurrentIndexHour] = useState(0);
-    const [lengthWeek, setLengthWeek] = useState(3);
+    const [lengthWeek, setLengthWeek] = useState(0);
     const [lengthHour, setLengthHour] = useState(7);
 
     let prev = null;
@@ -64,6 +64,27 @@ function RightSide({ darkMode }) {
     };
 
     useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth <= 1439 && window.innerWidth > 833) {
+                setLengthWeek(2);
+                setLengthHour(10);
+            } else if(window.innerWidth <= 833) {
+                setCurrentIndexDay(0);
+                setCurrentIndexHour(0);
+            } else {
+                setLengthWeek(0);
+                setLengthHour(7);
+            }
+        };
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, [lengthWeek, lengthHour]);
+
+    useEffect(() => {
         fetchData();
     }, []);
 
@@ -75,22 +96,23 @@ function RightSide({ darkMode }) {
                         <p className={`forecastText ${darkMode ? 'dark-mode' : ''}`}>Прогноз</p>
                         <div>
                             <button
-                                onClick={() => handleTabClick('week')}
-                                className={`forecastWeek ${darkMode ? 'dark-mode' : ''} ${activeTab === 'week' ? 'active' : ''}`}
-                            >
-                                на неделю
-                            </button>
-                            <button
                                 onClick={() => handleTabClick('hour')}
                                 className={`forecastHour ${darkMode ? 'dark-mode' : ''} ${activeTab === 'hour' ? 'active' : ''}`}
                             >
                                 почасовой
                             </button>
+                            <button
+                                onClick={() => handleTabClick('week')}
+                                className={`forecastWeek ${darkMode ? 'dark-mode' : ''} ${activeTab === 'week' ? 'active' : ''}`}
+                            >
+                                на неделю
+                            </button>
                         </div>
                     </div>
 
                     {activeTab === 'week'
-                        ? <>
+                        ?
+                        <>
                             <BtnCarousel
                                 onClick={prev}
                                 darkMode={darkMode}
@@ -115,23 +137,6 @@ function RightSide({ darkMode }) {
                                                 if (date.getDay() - 1 === new Date().getDay()) {
                                                     formattedDate = 'Завтра';
                                                 }
-
-                                                return (
-                                                    <CardForecastWeek
-                                                        key={index}
-                                                        darkMode={darkMode}
-                                                        day={formattedDate}
-                                                        img={item.weather[0].icon}
-                                                        degreesMorning={Math.round(item.main.temp_min)}
-                                                        degreesEvening={Math.round(item.main.temp_max)}
-                                                    />
-
-                                                );
-                                            })}
-                                            {/* Сделано для демонстрации работоспособности карусели, так как с API приходят данные только на 5 дней! */}
-                                            {weather.filter((item, index) => index % 8 === 0 && index !== 0).map((item, index) => {
-                                                const date = new Date(item.dt_txt);
-                                                let formattedDate = date.toLocaleDateString('ru-RU', { weekday: 'short', day: 'numeric', month: 'short' });                           
 
                                                 return (
                                                     <CardForecastWeek

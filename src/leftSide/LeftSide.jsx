@@ -17,10 +17,6 @@ function LeftSide({ darkMode, handleDarkModeToggle }) {
     const regexPattern = new RegExp("[А-Яа-яЁё\s\-]+");
     const [weatherData, setWeatherData] = useState(null);
 
-    useEffect(() => {
-        fetchData();
-    }, []);
-
     const fetchData = async () => {
         try {
             const data = await getWeatherCards();
@@ -29,6 +25,10 @@ function LeftSide({ darkMode, handleDarkModeToggle }) {
             console.error(error);
         }
     };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     //Переключение на темную тему
     const handleClickDarkTheme = () => {
@@ -53,7 +53,7 @@ function LeftSide({ darkMode, handleDarkModeToggle }) {
         const city = cityNames[0];
 
         const storedLastSearches = localStorage.getItem('lastSearches');
-        const parsedLastSearches = storedLastSearches ? JSON.parse(storedLastSearches) : [];
+        const parsedLastSearches = JSON.parse(storedLastSearches) || [];
         const updatedSearches = [city, ...parsedLastSearches]
             .filter((value, index, self) => self.indexOf(value) === index)
             .slice(0, 5);
@@ -64,18 +64,16 @@ function LeftSide({ darkMode, handleDarkModeToggle }) {
     };
 
     //Закрытие боковой панели после клика на город из истории поиска
-    const handleCloseLastSearch = (city) => {
-        setOpen(false);
-        setSearchValue('');
-        setCities([]);
-
-        const storedLastSearches = localStorage.getItem('lastSearches');
-        const parsedLastSearches = JSON.parse(storedLastSearches) || [];
-        const updatedSearches = parsedLastSearches.filter((search) => search !== city);
-
-        localStorage.setItem('lastSearches', JSON.stringify(updatedSearches));
-        setLastSearches(updatedSearches);
-        window.location.reload();
+    const handleCloseLastSearch = async (city) => {
+        try {
+            setOpen(false);
+            setSearchValue('');
+            setCities([]);
+            await getDataSearch(city);
+            window.location.reload();
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     //Контролируемый инпут и поиск только по кириллице
@@ -163,11 +161,11 @@ function LeftSide({ darkMode, handleDarkModeToggle }) {
                         darkMode={darkMode}
                         key={city}
                         city={city}
-                        onClick={handleCloseLastSearch}
+                        onClick={() => handleCloseLastSearch(city)}
                     />
                 ))}
 
-                {searchResultsEmpty && <p className={`noResults ${darkMode ? 'dark-mode' : ''}`}>Упс! Город не найден, попробуйте другой</p>}
+                {searchResultsEmpty && regexPattern.test(searchValue) && <p className={`noResults ${darkMode ? 'dark-mode' : ''}`}>Упс! Город не найден, попробуйте другой</p>}
                 {isLoading ? <Loader darkMode={darkMode} /> : cities.map((city, index) => (
                     <BtnSearchResults
                         darkMode={darkMode}

@@ -10,7 +10,7 @@
 }
 
 .forecast {
-    max-width: 720px;
+    max-width: 750px;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -157,10 +157,6 @@
         align-items: center;
     }
 
-    .forecastWeek {
-        margin-left: 0;
-    }
-
     .cardDetails:not(:first-child) {
         margin-top: 43px;
     }
@@ -172,6 +168,10 @@
         max-width: 255px;
         width: 100%;
         height: 100%;
+    }
+
+    .forecastHour {
+        margin-left: 0;
     }
 
 }

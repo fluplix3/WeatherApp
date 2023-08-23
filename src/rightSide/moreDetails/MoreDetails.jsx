@@ -39,7 +39,7 @@ function MoreDetails({ darkMode }) {
                     <li className={`cardDetails ${darkMode ? 'dark-mode' : ''}`}>
                         <span className={`cardMainText ${darkMode ? 'dark-mode' : ''}`}>Скорость ветра</span>
                         <div className="numberBlock">
-                            <span className={`numberDetails ${darkMode ? 'dark-mode' : ''}`}>{weatherData ? weatherData.wind.speed : 7}</span>
+                            <span className={`numberDetails ${darkMode ? 'dark-mode' : ''}`}>{weatherData ? weatherData.wind.speed : 0}</span>
                             <span className={`unitsDetails ${darkMode ? 'dark-mode' : ''}`}>м/с</span>
                         </div>
                         <div className="windDetailsBlock">
@@ -50,7 +50,7 @@ function MoreDetails({ darkMode }) {
                     <li className={`cardDetails ${darkMode ? 'dark-mode' : ''}`}>
                         <span className={`cardMainText ${darkMode ? 'dark-mode' : ''}`}>Влажность</span>
                         <div className="numberBlock">
-                            <span className={`numberDetails ${darkMode ? 'dark-mode' : ''}`}>{weatherData ? weatherData.main.humidity : 84}</span>
+                            <span className={`numberDetails ${darkMode ? 'dark-mode' : ''}`}>{weatherData ? weatherData.main.humidity : 0}</span>
                             <span className={`unitsDetails ${darkMode ? 'dark-mode' : ''}`}>%</span>
                         </div>
                         <div className={`humiditylFill`}>
@@ -60,7 +60,7 @@ function MoreDetails({ darkMode }) {
                                 <span className={`humidityPercent ${darkMode ? 'dark-mode' : ''}`}>100</span>
                             </div>
                             <div className={`humidityScale ${darkMode ? 'dark-mode' : ''}`}></div>
-                            <div className="humidityScaleOrange" style={{ width: `${weatherData ? weatherData.main.humidity : 84}%` }}></div>
+                            <div className="humidityScaleOrange" style={{ width: `${weatherData ? weatherData.main.humidity : 0}%` }}></div>
                             <span className={`percent ${darkMode ? 'dark-mode' : ''}`}>%</span>
                         </div>
                     </li>
@@ -71,7 +71,7 @@ function MoreDetails({ darkMode }) {
                                 {weatherData ? (
                                     weatherData.visibility > 10 ? 10 : weatherData.visibility
                                 ) : (
-                                    6.2
+                                    0
                                 )}
                             </span>
                             <span className={`unitsDetails ${darkMode ? 'dark-mode' : ''}`}>км</span>
@@ -80,7 +80,7 @@ function MoreDetails({ darkMode }) {
                     <li className={`cardDetails ${darkMode ? 'dark-mode' : ''}`}>
                         <span className={`cardMainText ${darkMode ? 'dark-mode' : ''}`}>Давление</span>
                         <div className="numberBlock numberBlock34">
-                            <span className={`numberDetails ${darkMode ? 'dark-mode' : ''}`}>{weatherData ? weatherData.main.pressure : 742}</span>
+                            <span className={`numberDetails ${darkMode ? 'dark-mode' : ''}`}>{weatherData ? Math.round(weatherData.main.pressure * 0.75) : 0}</span>
                             <span className={`unitsMercury ${darkMode ? 'dark-mode' : ''}`}>мм рт. ст.</span>
                         </div>
                     </li>
