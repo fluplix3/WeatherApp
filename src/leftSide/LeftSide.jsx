@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './leftSide.css';
 import BtnSearchResults from './btnSearchResults/BtnSearchResults';
-import getDataSearch from '../getData/getDataSearch';
 import Loader from '../loader/Loader';
 import BlockInfoDegrees from './blockInfoDegrees/BlockInfoDegrees';
 import getWeatherCards from '../getData/getWeatherCards';
+import getDataSearch from '../getData/GetDataSearch';
 
 function LeftSide({ darkMode, handleDarkModeToggle }) {
     const [open, setOpen] = useState(false);
